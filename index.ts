@@ -4,7 +4,7 @@ const cityRoute = require("./src/routes/citry.router");
 const pricehourRoute = require("./src/routes/pricehour.route");
 const bookingRoute = require("./src/routes/bookingstatus.route");
 const countryRoute = require("./src/routes/country.route");
-
+const garagebusinesshourRoute = require("./src/routes/garagebusinesshours.route");
 const PORT = 3000;
 
 // Load environment variables
@@ -21,5 +21,6 @@ app.use("/api/cities", cityRoute);
 app.use("/api/pricehour", pricehourRoute);
 app.use("/api/bookingstatus", bookingRoute);
 app.use("/api/country", countryRoute);
+app.use("/api/garagebusinesshours", garagebusinesshourRoute);
 
 module.exports = app;
