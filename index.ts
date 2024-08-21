@@ -2,6 +2,7 @@
 import express from "express";
 const cityRoute = require("./src/routes/citry.router");
 const pricehourRoute = require("./src/routes/pricehour.route");
+const bookingStatus = require("./src/routes/bookingstatus.route");
 
 const PORT = 3000;
 
@@ -17,5 +18,6 @@ app.listen(PORT, () => {
 // Routes
 app.use("/api/cities", cityRoute);
 app.use("/api/pricehour", pricehourRoute);
+app.use("/api/bookingstatus", bookingStatus);
 
 module.exports = app;
