@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  getStatus,
-  addStatus,
-  updateStatus,
-  removeStatus,
-} from "../controller/country.controller"; // Check this path
+import express from "express";
+import CountryController from "../controller/country.controller";
 
-const router = Router();
+const CountryRoute = express.Router();
+const countryController = new CountryController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+CountryRoute.route("/")
+  .post(countryController.create)
+  .get(countryController.getAll);
 
-module.exports = router;
+CountryRoute.route("/:id")
+  .get(countryController.getById)
+  .put(countryController.update)
+  .delete(countryController.delete);
+
+module.exports = CountryRoute;

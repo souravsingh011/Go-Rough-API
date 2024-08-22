@@ -1,18 +1,14 @@
-import { Router } from "express";
-import {
-  getCities,
-  getCity,
-  addCity,
-  updateCityInfo,
-  removeCity,
-} from "../controller/city.controller"; // Check this path
+import express from "express";
+import CityController from "../controller/city.controller";
 
-const router = Router();
+const CityRoute = express.Router();
+const cityController = new CityController();
 
-router.get("/", getCities);
-router.get("/:id", getCity);
-router.post("/", addCity);
-router.put("/:id", updateCityInfo);
-router.delete("/:id", removeCity);
+CityRoute.route("/").post(cityController.create).get(cityController.getAll);
 
-module.exports = router;
+CityRoute.route("/:id")
+  .get(cityController.getById)
+  .put(cityController.update)
+  .delete(cityController.delete);
+
+module.exports = CityRoute;

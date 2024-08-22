@@ -2,33 +2,34 @@
 import { PrismaClient, garagebusinesshours } from "@prisma/client";
 
 const prisma = new PrismaClient();
+class GarageBusinessHoursRepository {
+  getAll = async (): Promise<garagebusinesshours[]> => {
+    return await prisma.garagebusinesshours.findMany();
+  };
 
-export const getAllGBH = async (): Promise<garagebusinesshours[]> => {
-  return await prisma.garagebusinesshours.findMany();
-};
+  getById = async (id: number): Promise<garagebusinesshours | null> => {
+    return await prisma.garagebusinesshours.findUnique({ where: { id } });
+  };
 
-export const getGBHById = async (
-  id: number
-): Promise<garagebusinesshours | null> => {
-  return await prisma.garagebusinesshours.findUnique({ where: { id } });
-};
+  create = async (
+    data: Omit<garagebusinesshours, "id">
+  ): Promise<garagebusinesshours> => {
+    return await prisma.garagebusinesshours.create({ data });
+  };
 
-export const createGBH = async (
-  data: Omit<garagebusinesshours, "id">
-): Promise<garagebusinesshours> => {
-  return await prisma.garagebusinesshours.create({ data });
-};
+  update = async (
+    id: number,
+    data: Partial<Omit<garagebusinesshours, "id">>
+  ): Promise<garagebusinesshours> => {
+    return await prisma.garagebusinesshours.update({
+      where: { id },
+      data,
+    });
+  };
 
-export const updateGBH = async (
-  id: number,
-  data: Partial<Omit<garagebusinesshours, "id">>
-): Promise<garagebusinesshours> => {
-  return await prisma.garagebusinesshours.update({
-    where: { id },
-    data,
-  });
-};
+  delete = async (id: number): Promise<garagebusinesshours> => {
+    return await prisma.garagebusinesshours.delete({ where: { id } });
+  };
+}
 
-export const deleteGBH = async (id: number): Promise<garagebusinesshours> => {
-  return await prisma.garagebusinesshours.delete({ where: { id } });
-};
+export default GarageBusinessHoursRepository;

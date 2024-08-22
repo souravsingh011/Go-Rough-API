@@ -1,70 +1,66 @@
-// src/controllers/cityController.ts
+// src/controllers/countryController.ts
 import { Request, Response } from "express";
-import {
-  getAllCountry,
-  getCountryById,
-  createCountry,
-  updateCountry,
-  deleteCountry,
-} from "../repository/country.repository ";
+import CountryService from "../services/country.service";
 
-export const getAllStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const cities = await getAllCountry();
-    res.status(200).json(cities);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching cities", error });
+class CountryController {
+  countryService: CountryService;
+  constructor() {
+    this.countryService = new CountryService();
   }
-};
-
-export const getStatus = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
-  try {
-    const city = await getCountryById(Number(id));
-    if (city) {
-      res.status(200).json(city);
-    } else {
-      res.status(404).json({ message: "City not found" });
+  getAll = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const country = await this.countryService.getAll();
+      res.status(200).json(country);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching country", error });
     }
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching city", error });
-  }
-};
+  };
 
-export const addStatus = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const newCity = await createCountry(req.body);
-    res.status(201).json(newCity);
-  } catch (error) {
-    res.status(500).json({ message: "Error creating city", error });
-  }
-};
+  getById = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const country = await this.countryService.getById(Number(id));
+      if (country) {
+        res.status(200).json(country);
+      } else {
+        res.status(404).json({ message: "Country not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching country", error });
+    }
+  };
 
-export const updateStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-  try {
-    const updatedCity = await updateCountry(Number(id), req.body);
-    res.status(200).json(updatedCity);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating city", error });
-  }
-};
+  create = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const newcountry = await this.countryService.create(req.body);
+      res.status(201).json(newcountry);
+    } catch (error) {
+      res.status(500).json({ message: "Error creating country", error });
+    }
+  };
 
-export const removeStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-  try {
-    await deleteCountry(Number(id));
-    res.status(204).send(); // No content response
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting city", error });
-  }
-};
+  update = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const updatedcountry = await this.countryService.update(
+        Number(id),
+        req.body
+      );
+      res.status(200).json(updatedcountry);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating country", error });
+    }
+  };
+
+  delete = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      await this.countryService.delete(Number(id));
+      res.status(204).send(); // No content response
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting country", error });
+    }
+  };
+}
+
+export default CountryController;

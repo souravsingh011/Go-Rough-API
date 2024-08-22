@@ -1,18 +1,14 @@
-import { Router } from "express";
-import { getAllStatus } from "../controller/date.controller"; // Check this path
-import {
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/date.controller";
+import express from "express";
+import DateController from "../controller/date.controller";
 
-const router = Router();
+const DateRoute = express.Router();
+const dateController = new DateController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+DateRoute.route("/").post(dateController.create).get(dateController.getAll);
 
-module.exports = router;
+DateRoute.route("/:id")
+  .get(dateController.getById)
+  .put(dateController.update)
+  .delete(dateController.delete);
+
+module.exports = DateRoute;

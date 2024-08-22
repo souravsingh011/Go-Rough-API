@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getGBHs,
-  getGBH,
-  addGBH,
-  updateeGBH,
-  removeGBH,
-} from "../controller/garagebusinesshours.controller"; // Check this path
+import express from "express";
+import GarageBusinessHoursController from "../controller/garagebusinesshours.controller";
 
-const router = Router();
+const GarageBusinessHoursRoute = express.Router();
+const garageBusinessHoursController = new GarageBusinessHoursController();
 
-router.get("/", getGBHs);
-router.get("/:id", getGBH);
-router.post("/", addGBH);
-router.put("/:id", updateeGBH);
-router.delete("/:id", removeGBH);
+GarageBusinessHoursRoute.route("/")
+  .post(garageBusinessHoursController.create)
+  .get(garageBusinessHoursController.getAll);
 
-module.exports = router;
+GarageBusinessHoursRoute.route("/:id")
+  .get(garageBusinessHoursController.getById)
+  .put(garageBusinessHoursController.update)
+  .delete(garageBusinessHoursController.delete);
+
+module.exports = GarageBusinessHoursRoute;

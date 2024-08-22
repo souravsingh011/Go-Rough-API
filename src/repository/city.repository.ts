@@ -2,29 +2,32 @@
 import { PrismaClient, city } from "@prisma/client";
 
 const prisma = new PrismaClient();
+class CityRepository {
+  getAll = async (): Promise<city[]> => {
+    return await prisma.city.findMany();
+  };
 
-export const getAllCities = async (): Promise<city[]> => {
-  return await prisma.city.findMany();
-};
+  getById = async (id: number): Promise<city | null> => {
+    return await prisma.city.findUnique({ where: { id } });
+  };
 
-export const getCityById = async (id: number): Promise<city | null> => {
-  return await prisma.city.findUnique({ where: { id } });
-};
+  create = async (data: Omit<city, "id">): Promise<city> => {
+    return await prisma.city.create({ data });
+  };
 
-export const createCity = async (data: Omit<city, "id">): Promise<city> => {
-  return await prisma.city.create({ data });
-};
+  update = async (
+    id: number,
+    data: Partial<Omit<city, "id">>
+  ): Promise<city> => {
+    return await prisma.city.update({
+      where: { id },
+      data,
+    });
+  };
 
-export const updateCity = async (
-  id: number,
-  data: Partial<Omit<city, "id">>
-): Promise<city> => {
-  return await prisma.city.update({
-    where: { id },
-    data,
-  });
-};
+  delete = async (id: number): Promise<city> => {
+    return await prisma.city.delete({ where: { id } });
+  };
+}
 
-export const deleteCity = async (id: number): Promise<city> => {
-  return await prisma.city.delete({ where: { id } });
-};
+export default CityRepository;
