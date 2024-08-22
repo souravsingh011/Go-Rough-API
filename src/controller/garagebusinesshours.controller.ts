@@ -6,7 +6,7 @@ import {
   createGBH,
   updateGBH,
   deleteGBH,
-} from "../models/garagebusinesshours.model";
+} from "../repository/garagebusinesshours.repository";
 
 export const getGBHs = async (req: Request, res: Response): Promise<void> => {
   try {

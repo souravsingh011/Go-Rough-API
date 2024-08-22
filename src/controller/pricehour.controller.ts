@@ -6,7 +6,7 @@ import {
   createPrice,
   updatePrice,
   deletePrice,
-} from "../models/pricehour.model";
+} from "../repository/pricehour.repository";
 
 export const getCities = async (req: Request, res: Response): Promise<void> => {
   try {

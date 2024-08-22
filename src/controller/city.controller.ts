@@ -6,7 +6,7 @@ import {
   createCity,
   updateCity,
   deleteCity,
-} from "../models/city.model";
+} from "../repository/city.repository";
 
 export const getCities = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -6,7 +6,7 @@ import {
   createCountry,
   updateCountry,
   deleteCountry,
-} from "../models/country.model";
+} from "../repository/country.repository ";
 
 export const getAllStatus = async (
   req: Request,

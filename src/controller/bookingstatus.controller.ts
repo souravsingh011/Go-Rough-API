@@ -6,7 +6,7 @@ import {
   createbookingstatus,
   updatebookingstatus,
   deletebookingstatus,
-} from "../models/bookingstatus.model";
+} from "../repository/bookingstatus.repository";
 
 export const getAllStatus = async (
   req: Request,
