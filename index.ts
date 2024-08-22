@@ -1,5 +1,6 @@
 // src/app.ts
 import express from "express";
+const PORT = 3000;
 const cityRoute = require("./src/routes/citry.router");
 const pricehourRoute = require("./src/routes/pricehour.route");
 const bookingRoute = require("./src/routes/bookingstatus.route");
@@ -8,7 +9,7 @@ const garagebusinesshourRoute = require("./src/routes/garagebusinesshours.route"
 const dateRoute = require("./src/routes/date.route");
 const lcClassRoute = require("./src/routes/lcclass.route");
 const placeRoute = require("./src/routes/place.route");
-const PORT = 3000;
+const stateRoute = require("./src/routes/state.route");
 
 // Load environment variables
 const app = express();
@@ -28,5 +29,6 @@ app.use("/api/garagebusinesshours", garagebusinesshourRoute);
 app.use("/api/date", dateRoute);
 app.use("/api/lcclass", lcClassRoute);
 app.use("/api/place", placeRoute);
+app.use("/api/state", stateRoute);
 
 module.exports = app;

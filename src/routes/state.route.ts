@@ -5,7 +5,7 @@ import {
   getStatus,
   removeStatus,
   updateStatus,
-} from "../controller/place.controller";
+} from "../controller/state.controller";
 
 const router = Router();
 
