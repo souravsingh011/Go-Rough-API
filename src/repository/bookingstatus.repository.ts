@@ -1,4 +1,4 @@
-// src/models/bookingstatusModel.ts
+// src/models/bookingstatusModel.ts--- Model
 import { PrismaClient, bookingstatus } from "@prisma/client";
 
 const prisma = new PrismaClient();
