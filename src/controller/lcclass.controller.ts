@@ -11,33 +11,33 @@ export const getAllStatus = async (
   res: Response
 ): Promise<void> => {
   try {
-    const date = await getAllLcclass();
-    res.status(200).json(date);
+    const lc = await getAllLcclass();
+    res.status(200).json(lc);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching date", error });
+    res.status(500).json({ message: "Error fetching lc", error });
   }
 };
 
 export const getStatus = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
   try {
-    const date = await getLcclassById(Number(id));
-    if (date) {
-      res.status(200).json(date);
+    const lc = await getLcclassById(Number(id));
+    if (lc) {
+      res.status(200).json(lc);
     } else {
-      res.status(404).json({ message: "Date not found" });
+      res.status(404).json({ message: "Lc not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching date", error });
+    res.status(500).json({ message: "Error fetching lc", error });
   }
 };
 
 export const addStatus = async (req: Request, res: Response): Promise<void> => {
   try {
-    const newdate = await createLcclass(req.body);
-    res.status(201).json(newdate);
+    const newlc = await createLcclass(req.body);
+    res.status(201).json(newlc);
   } catch (error) {
-    res.status(500).json({ message: "Error creating date", error });
+    res.status(500).json({ message: "Error creating lc", error });
   }
 };
 
@@ -47,10 +47,10 @@ export const updateStatus = async (
 ): Promise<void> => {
   const { id } = req.params;
   try {
-    const updatedate = await updateLcclass(Number(id), req.body);
-    res.status(200).json(updatedate);
+    const uplc = await updateLcclass(Number(id), req.body);
+    res.status(200).json(uplc);
   } catch (error) {
-    res.status(500).json({ message: "Error updating date", error });
+    res.status(500).json({ message: "Error updating lc", error });
   }
 };
 
@@ -63,6 +63,6 @@ export const removeStatus = async (
     await deleteLcclass(Number(id));
     res.status(204).send(); // No content response
   } catch (error) {
-    res.status(500).json({ message: "Error deleting date", error });
+    res.status(500).json({ message: "Error deleting lc", error });
   }
 };

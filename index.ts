@@ -7,6 +7,7 @@ const countryRoute = require("./src/routes/country.route");
 const garagebusinesshourRoute = require("./src/routes/garagebusinesshours.route");
 const dateRoute = require("./src/routes/date.route");
 const lcClassRoute = require("./src/routes/lcclass.route");
+const placeRoute = require("./src/routes/place.route");
 const PORT = 3000;
 
 // Load environment variables
@@ -26,5 +27,6 @@ app.use("/api/country", countryRoute);
 app.use("/api/garagebusinesshours", garagebusinesshourRoute);
 app.use("/api/date", dateRoute);
 app.use("/api/lcclass", lcClassRoute);
+app.use("/api/place", placeRoute);
 
 module.exports = app;
