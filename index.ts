@@ -12,6 +12,7 @@ const placeRoute = require("./src/routes/place.route");
 const stateRoute = require("./src/routes/state.route");
 const vehiclecolorRoute = require("./src/routes/vehiclecolor.route");
 const vehiclemodelRoute = require("./src/routes/vehiclemodel.route");
+const vehicletypeRoute = require("./src/routes/vehicletype.route");
 
 // Load environment variables
 const app = express();
@@ -32,7 +33,7 @@ app.use("/api/date", dateRoute);
 app.use("/api/lcclass", lcClassRoute);
 app.use("/api/place", placeRoute);
 app.use("/api/state", stateRoute);
-app.use("/api/vehiclemodel", vehiclemodelRoute);
 app.use("/api/vehiclecolor", vehiclecolorRoute);
+app.use("/api/vehicletype", vehicletypeRoute);
 
 module.exports = app;
