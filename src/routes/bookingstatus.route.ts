@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  getStatus,
-  addStatus,
-  updateStatus,
-  removeStatus,
-} from "../controller/bookingstatus.controller"; // Check this path
+import express from "express";
+import BookingStatusController from "../controller/bookingstatus.controller";
 
-const router = Router();
+const BookingStatusRoute = express.Router();
+const bookingStatusController = new BookingStatusController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+BookingStatusRoute.route("/")
+  .post(bookingStatusController.create)
+  .get(bookingStatusController.getAll);
 
-module.exports = router;
+BookingStatusRoute.route("/:id")
+  .get(bookingStatusController.getById)
+  .put(bookingStatusController.update)
+  .delete(bookingStatusController.delete);
+
+module.exports = BookingStatusRoute;
