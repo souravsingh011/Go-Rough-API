@@ -34,6 +34,7 @@ app.use("/api/lcclass", lcClassRoute);
 app.use("/api/place", placeRoute);
 app.use("/api/state", stateRoute);
 app.use("/api/vehiclecolor", vehiclecolorRoute);
+app.use("/api/vehiclemodel", vehiclemodelRoute);
 app.use("/api/vehicletype", vehicletypeRoute);
 
 module.exports = app;

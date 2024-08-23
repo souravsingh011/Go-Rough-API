@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/vehiclemodel.controller";
+import express from "express";
+import VehicleModelController from "../controller/vehiclemodel.controller";
 
-const router = Router();
+const VehicleModelRoute = express.Router();
+const vehicleModelController = new VehicleModelController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+VehicleModelRoute.route("/")
+  .post(vehicleModelController.create)
+  .get(vehicleModelController.getAll);
 
-module.exports = router;
+VehicleModelRoute.route("/:id")
+  .get(vehicleModelController.getById)
+  .put(vehicleModelController.update)
+  .delete(vehicleModelController.delete);
+
+module.exports = VehicleModelRoute;

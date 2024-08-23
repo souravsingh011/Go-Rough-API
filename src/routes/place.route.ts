@@ -1,18 +1,14 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/place.controller";
+import express from "express";
+import PlaceController from "../controller/place.controller";
 
-const router = Router();
+const PlaceRoute = express.Router();
+const placeController = new PlaceController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+PlaceRoute.route("/").post(placeController.create).get(placeController.getAll);
 
-module.exports = router;
+PlaceRoute.route("/:id")
+  .get(placeController.getById)
+  .put(placeController.update)
+  .delete(placeController.delete);
+
+module.exports = PlaceRoute;

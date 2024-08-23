@@ -1,18 +1,16 @@
-import { Router } from "express";
-import { getAllStatus } from "../controller/lcclass.controller"; // Check this path
-import {
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/lcclass.controller";
+import express from "express";
+import LcClassController from "../controller/lcclass.controller";
 
-const router = Router();
+const LcClassRoute = express.Router();
+const lcClassController = new LcClassController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+LcClassRoute.route("/")
+  .post(lcClassController.create)
+  .get(lcClassController.getAll);
 
-module.exports = router;
+LcClassRoute.route("/:id")
+  .get(lcClassController.getById)
+  .put(lcClassController.update)
+  .delete(lcClassController.delete);
+
+module.exports = LcClassRoute;

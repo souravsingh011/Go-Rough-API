@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getCities,
-  getCity,
-  addCity,
-  updateCityInfo,
-  removeCity,
-} from "../controller/pricehour.controller"; // Check this path
+import express from "express";
+import PriceHourController from "../controller/pricehour.controller";
 
-const router = Router();
+const PriceHourRoute = express.Router();
+const priceHourController = new PriceHourController();
 
-router.get("/", getCities);
-router.get("/:id", getCity);
-router.post("/", addCity);
-router.put("/:id", updateCityInfo);
-router.delete("/:id", removeCity);
+PriceHourRoute.route("/")
+  .post(priceHourController.create)
+  .get(priceHourController.getAll);
 
-module.exports = router;
+PriceHourRoute.route("/:id")
+  .get(priceHourController.getById)
+  .put(priceHourController.update)
+  .delete(priceHourController.delete);
+
+module.exports = PriceHourRoute;

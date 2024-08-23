@@ -1,68 +1,62 @@
 import { Request, Response } from "express";
-import {
-  getAllPlace,
-  getPlaceById,
-  createPlace,
-  updatePlace,
-  deleteplace,
-} from "../repository/place.repository";
-export const getAllStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
-    const place = await getAllPlace();
-    res.status(200).json(place);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching place", error });
-  }
-};
+import PlaceService from "../services/place.service";
 
-export const getStatus = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
-  try {
-    const place = await getPlaceById(Number(id));
-    if (place) {
+class PlaceController {
+  placeService: PlaceService;
+  constructor() {
+    this.placeService = new PlaceService();
+  }
+  getAll = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const place = await this.placeService.getAll();
       res.status(200).json(place);
-    } else {
-      res.status(404).json({ message: "place not found" });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching place", error });
     }
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching place", error });
-  }
-};
+  };
 
-export const addStatus = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const newplace = await createPlace(req.body);
-    res.status(201).json(newplace);
-  } catch (error) {
-    res.status(500).json({ message: "Error creating place", error });
-  }
-};
+  getById = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const place = await this.placeService.getById(Number(id));
+      if (place) {
+        res.status(200).json(place);
+      } else {
+        res.status(404).json({ message: "place not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching place", error });
+    }
+  };
 
-export const updateStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-  try {
-    const upplace = await updatePlace(Number(id), req.body);
-    res.status(200).json(upplace);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating place", error });
-  }
-};
+  create = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const place = await this.placeService.create(req.body);
+      res.status(201).json(place);
+    } catch (error) {
+      res.status(500).json({ message: "Error creating place", error });
+    }
+  };
 
-export const removeStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-  try {
-    await deleteplace(Number(id));
-    res.status(204).send(); // No content response
-  } catch (error) {
-    res.status(500).json({ message: "Error deleting place", error });
-  }
-};
+  update = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      const place = await this.placeService.update(Number(id), req.body);
+      res.status(200).json(place);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating place", error });
+    }
+  };
+
+  delete = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    try {
+      await this.placeService.delete(Number(id));
+      res.status(204).send(); // No content response
+    } catch (error) {
+      res.status(500).json({ message: "Error deleting place", error });
+    }
+  };
+}
+
+export default PlaceController;

@@ -1,18 +1,16 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/vehiclecolor.controller";
+import express from "express";
+import VehicleColorController from "../controller/vehiclecolor.controller";
 
-const router = Router();
+const BookingStatusRoute = express.Router();
+const vehicleColorController = new VehicleColorController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+BookingStatusRoute.route("/")
+  .post(vehicleColorController.create)
+  .get(vehicleColorController.getAll);
 
-module.exports = router;
+BookingStatusRoute.route("/:id")
+  .get(vehicleColorController.getById)
+  .put(vehicleColorController.update)
+  .delete(vehicleColorController.delete);
+
+module.exports = BookingStatusRoute;

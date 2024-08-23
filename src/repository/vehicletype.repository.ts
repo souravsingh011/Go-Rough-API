@@ -1,33 +1,31 @@
 import { PrismaClient, vehicletype } from "@prisma/client";
 
 const prisma = new PrismaClient();
+class VehicleTypeRepository {
+  getAll = async (): Promise<vehicletype[]> => {
+    return await prisma.vehicletype.findMany();
+  };
 
-export const getAllVehicleType = async (): Promise<vehicletype[]> => {
-  return await prisma.vehicletype.findMany();
-};
+  getById = async (id: number): Promise<vehicletype | null> => {
+    return await prisma.vehicletype.findUnique({ where: { id } });
+  };
 
-export const getVehicleTypeById = async (
-  id: number
-): Promise<vehicletype | null> => {
-  return await prisma.vehicletype.findUnique({ where: { id } });
-};
+  create = async (data: Omit<vehicletype, "id">): Promise<vehicletype> => {
+    return await prisma.vehicletype.create({ data });
+  };
 
-export const createVehicleType = async (
-  data: Omit<vehicletype, "id">
-): Promise<vehicletype> => {
-  return await prisma.vehicletype.create({ data });
-};
+  update = async (
+    id: number,
+    data: Partial<Omit<vehicletype, "id">>
+  ): Promise<vehicletype> => {
+    return await prisma.vehicletype.update({
+      where: { id },
+      data,
+    });
+  };
 
-export const updateVehicleType = async (
-  id: number,
-  data: Partial<Omit<vehicletype, "id">>
-): Promise<vehicletype> => {
-  return await prisma.vehicletype.update({
-    where: { id },
-    data,
-  });
-};
-
-export const deleteVehicleType = async (id: number): Promise<vehicletype> => {
-  return await prisma.vehicletype.delete({ where: { id } });
-};
+  delete = async (id: number): Promise<vehicletype> => {
+    return await prisma.vehicletype.delete({ where: { id } });
+  };
+}
+export default VehicleTypeRepository;

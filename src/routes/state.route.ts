@@ -1,18 +1,14 @@
-import { Router } from "express";
-import {
-  getAllStatus,
-  addStatus,
-  getStatus,
-  removeStatus,
-  updateStatus,
-} from "../controller/state.controller";
+import express from "express";
+import StateController from "../controller/state.controller";
 
-const router = Router();
+const StateRoute = express.Router();
+const stateController = new StateController();
 
-router.get("/", getAllStatus);
-router.get("/:id", getStatus);
-router.post("/", addStatus);
-router.put("/:id", updateStatus);
-router.delete("/:id", removeStatus);
+StateRoute.route("/").post(stateController.create).get(stateController.getAll);
 
-module.exports = router;
+StateRoute.route("/:id")
+  .get(stateController.getById)
+  .put(stateController.update)
+  .delete(stateController.delete);
+
+module.exports = StateRoute;
